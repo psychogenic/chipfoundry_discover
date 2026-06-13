@@ -1,0 +1,47 @@
+(version 1)
+
+
+(rule "neckdown M.2"
+  (condition "A.intersectsCourtyard('ChipDiscover:*MDT320E*') && A.Layer == 'F.Cu' && A.Type != 'Zone'")
+  (constraint track_width (min 0.16mm) (opt 0.20mm))
+  (constraint clearance (min 0.16mm) (opt 0.18mm) (max 0.2mm))
+)
+
+(rule "neckdown M.2 pads"
+   (constraint clearance (min 0.18mm) (opt 0.20mm) (max 0.2mm))
+   (condition "A.Type == 'Pad' && A.memberOfFootprint('ChipDiscover:*MDT320E*')")
+
+)
+
+
+
+(rule "neckdown QFN80"
+   (constraint track_width (min 0.16mm) (opt 0.20mm))
+   (constraint clearance (min 0.16mm) (opt 0.16mm) (max 0.2mm))
+   (condition "A.intersectsCourtyard('Package_DFN_QFN:QFN-80*') && A.Layer == 'F.Cu' && A.Type != 'Zone'")
+
+)
+
+(rule "neckdown QFN80 pads"
+   (constraint clearance (min 0.18mm) (opt 0.20mm) (max 0.2mm))
+   (condition "A.Type == 'Pad' && A.memberOfFootprint('Package_DFN_QFN:QFN-80*')")
+
+)
+
+
+
+(rule "USB pads clearance"
+   (condition "A.Type == 'Pad' && A.memberOfFootprint('ChipDiscover:USB_C_Receptacle*')")
+   (constraint clearance (min 0.2mm) (opt 0.25mm))
+)
+
+
+(rule "USB sigs clearance"
+   (condition "A.intersectsCourtyard('ChipDiscover:USB_C_Receptacle*') && A.Layer == 'F.Cu' && A.Type != 'Zone'")
+   (constraint clearance (min 0.2mm) (opt 0.25mm))
+)
+
+(rule "vreglx"
+   (condition "A.hasNetclass('Power') && B.Type == 'Track' && B.NetName == '*VREG_LX'")
+   (constraint clearance (min 0.16mm) (opt 0.2mm))
+)
